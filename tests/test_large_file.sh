@@ -1,6 +1,6 @@
 #!/bin/bash
 
-PYTHON="coverage run -p -a"
+PYTHON="coverage run -a"
 URL=http://127.0.0.1/file
 
 mkdir -p tmp
@@ -8,7 +8,7 @@ mkdir -p tmp
 $PYTHON shadowsocks/local.py -c tests/aes.json &
 LOCAL=$!
 
-$PYTHON shadowsocks/server.py -c tests/aes.json &
+$PYTHON shadowsocks/server.py -c tests/aes.json --forbidden-ip "" &
 SERVER=$!
 
 sleep 3

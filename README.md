@@ -3,83 +3,95 @@ shadowsocks
 
 [![PyPI version]][PyPI]
 [![Build Status]][Travis CI]
-[![Coverage Status]][Coverage]
 
 A fast tunnel proxy that helps you bypass firewalls.
+
+Features:
+- TCP & UDP support
+- User management API
+- TCP Fast Open
+- Workers and graceful restart
+- Destination IP blacklist
 
 Server
 ------
 
 ### Install
 
-#### Debian / Ubuntu:
+Debian / Ubuntu:
 
     apt-get install python-pip
-    pip install shadowsocks
+    pip install git+https://github.com/shadowsocks/shadowsocks.git@master
 
-#### CentOS:
+CentOS:
 
     yum install python-setuptools && easy_install pip
-    pip install shadowsocks
+    pip install git+https://github.com/shadowsocks/shadowsocks.git@master
 
-#### Windows:
+For CentOS 7, if you need AEAD ciphers, you need install libsodium
+```
+dnf install libsodium python34-pip
+pip3 install  git+https://github.com/shadowsocks/shadowsocks.git@master
+```
+Linux distributions with [snap](http://snapcraft.io/):
 
-See [Install Server on Windows]
+    snap install shadowsocks
+
+Windows:
+
+See [Install Shadowsocks Server on Windows](https://github.com/shadowsocks/shadowsocks/wiki/Install-Shadowsocks-Server-on-Windows).
 
 ### Usage
 
-    ssserver -p 8000 -k password -m rc4-md5
+    ssserver -p 443 -k password -m aes-256-cfb
 
 To run in the background:
 
-    ssserver -p 8000 -k password -m rc4-md5 -d start
-    ssserver -p 8000 -k password -m rc4-md5 -d stop
+    sudo ssserver -p 443 -k password -m aes-256-cfb --user nobody -d start
+
+To stop:
+
+    sudo ssserver -d stop
+
+To check the log:
+
+    sudo less /var/log/shadowsocks.log
 
 Check all the options via `-h`. You can also use a [Configuration] file
 instead.
 
-Client
-------
+If you installed the [snap](http://snapcraft.io/) package, you have to prefix the commands with `shadowsocks.`,
+like this:
 
-* [Windows] / [OS X]
-* [Android] / [iOS]
-* [OpenWRT]
+    shadowsocks.ssserver -p 443 -k password -m aes-256-cfb
+    
+### Usage with Config File
 
-Use GUI clients on your local PC/phones. Check the README of your client
-for more information.
+[Create configuration file and run](https://github.com/shadowsocks/shadowsocks/wiki/Configuration-via-Config-File)
+
+To start:
+
+    ssserver -c /etc/shadowsocks.json
+
 
 Documentation
 -------------
 
-You can find all the documentation in the [Wiki].
+You can find all the documentation in the [Wiki](https://github.com/shadowsocks/shadowsocks/wiki).
 
 License
 -------
-MIT
 
-Bugs and Issues
-----------------
-
-* [Troubleshooting]
-* [Issue Tracker]
-* [Mailing list]
+Apache License
 
 
-[Android]:           https://github.com/shadowsocks/shadowsocks/wiki/Ports-and-Clients#android
+
+
+
+
+
 [Build Status]:      https://img.shields.io/travis/shadowsocks/shadowsocks/master.svg?style=flat
-[Configuration]:     https://github.com/shadowsocks/shadowsocks/wiki/Configuration-via-Config-File
-[Coverage Status]:   https://jenkins.shadowvpn.org/result/shadowsocks
-[Coverage]:          https://jenkins.shadowvpn.org/job/Shadowsocks/ws/htmlcov/index.html
-[Debian sid]:        https://packages.debian.org/unstable/python/shadowsocks
-[iOS]:               https://github.com/shadowsocks/shadowsocks-iOS/wiki/Help
-[Issue Tracker]:     https://github.com/shadowsocks/shadowsocks/issues?state=open
-[Install Server on Windows]: https://github.com/shadowsocks/shadowsocks/wiki/Install-Shadowsocks-Server-on-Windows
-[Mailing list]:      https://groups.google.com/group/shadowsocks
-[OpenWRT]:           https://github.com/shadowsocks/openwrt-shadowsocks
-[OS X]:              https://github.com/shadowsocks/shadowsocks-iOS/wiki/Shadowsocks-for-OSX-Help
 [PyPI]:              https://pypi.python.org/pypi/shadowsocks
 [PyPI version]:      https://img.shields.io/pypi/v/shadowsocks.svg?style=flat
 [Travis CI]:         https://travis-ci.org/shadowsocks/shadowsocks
-[Troubleshooting]:   https://github.com/shadowsocks/shadowsocks/wiki/Troubleshooting
-[Wiki]:              https://github.com/shadowsocks/shadowsocks/wiki
-[Windows]:           https://github.com/shadowsocks/shadowsocks/wiki/Ports-and-Clients#windows
+
